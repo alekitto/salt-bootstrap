@@ -106,6 +106,10 @@ def requires_pip_based_installations():
     if GRAINS['os'] == 'SUSE  Enterprise Server' and IS_SUSE_SP1:
         # Only SuSE SLES SP1 requires -P
         return True
+    if GRAINS['os'] == 'Ubuntu':
+        ubuntu_version = GRAINS['osrelease'].split('.')
+        if ubuntu_version[0] < '12' or (ubuntu_version[0] == '12' and ubuntu_version[1] < '10'):
+            return True
     if GRAINS['os'] not in OS_REQUIRES_PIP_ALLOWED:
         return False
     return True
